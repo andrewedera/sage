@@ -4,7 +4,6 @@ use Roots\Sage\Setup;
 use Roots\Sage\Wrapper;
 
 ?>
-
 <!doctype html>
 <html <?php language_attributes(); ?>>
   <?php get_template_part('templates/head'); ?>
@@ -24,9 +23,11 @@ use Roots\Sage\Wrapper;
           <?php include Wrapper\template_path(); ?>
         </main><!-- /.main -->
         <?php if (Setup\display_sidebar()) : ?>
+        <div class="sidebar-wrapper">
           <aside class="sidebar">
             <?php include Wrapper\sidebar_path(); ?>
           </aside><!-- /.sidebar -->
+        </div><!-- /.sidebar-wrapper -->
         <?php endif; ?>
       </div><!-- /.content -->
     </div><!-- /.wrap -->

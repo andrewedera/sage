@@ -1,0 +1,12 @@
+.sidebar {
+	//padding: 1em;
+	@include padding(rem(15));
+
+	@include background($base-background-color);
+
+	.widget {
+	    &:not(:last-child) {
+	    	padding-bottom: 1em;
+		}
+	}
+}

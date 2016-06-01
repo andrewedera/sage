@@ -92,7 +92,11 @@ var cssTasks = function(filename) {
       return gulpif('*.scss', sass({
         outputStyle: 'nested', // libsass doesn't support expanded yet
         precision: 10,
-        includePaths: ['.'],
+        includePaths: [
+          '.',
+          require("bourbon").includePaths,
+          require("bourbon-neat").includePaths
+        ],
         errLogToConsole: !enabled.failStyleTask
       }));
     })

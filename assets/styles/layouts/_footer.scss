@@ -1,0 +1,6 @@
+.footer {
+
+	.widget {
+		@include span-columns(3);
+	}
+}
