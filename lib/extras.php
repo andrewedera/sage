@@ -31,3 +31,15 @@ function excerpt_more() {
   return ' &hellip; <a href="' . get_permalink() . '">' . __('Continued', 'sage') . '</a>';
 }
 add_filter('excerpt_more', __NAMESPACE__ . '\\excerpt_more');
+
+/**
+ * Custom Header
+ */
+$args = array(
+    'flex-width'    => true,
+    'width'         => 100,
+    'flex-height'    => true,
+    'height'        => 50,
+    'default-image' => get_template_directory_uri() . '/logo.png',
+);
+add_theme_support( 'custom-header', $args );
