@@ -103,13 +103,17 @@ var cssTasks = function(filename) {
     .pipe(concat, filename)
     .pipe(autoprefixer, {
       browsers: [
-        'last 2 versions',
-        'android 4',
-        'opera 12'
+        'last 2 version',
+        'safari 5', 'ie 8',
+        'ie 9',
+        'opera 12',
+        'ios 6',
+        'android 4'
       ]
     })
     .pipe(cssNano, {
-      safe: true
+      safe: true,
+      discardComments: {removeAll: true}
     })
     .pipe(function() {
       return gulpif(enabled.rev, rev());
@@ -119,6 +123,40 @@ var cssTasks = function(filename) {
         sourceRoot: 'assets/styles/'
       }));
     })();
+};
+
+var cssUnminify = function(filename) {
+  return lazypipe()
+    .pipe(function() {
+      return gulpif(!enabled.failStyleTask, plumber());
+    })
+    .pipe(function() {
+      return gulpif('*.less', less());
+    })
+    .pipe(function() {
+      return gulpif('*.scss', sass({
+        outputStyle: 'nested', // libsass doesn't support expanded yet
+        precision: 10,
+        includePaths: [
+          '.',
+          require("bourbon").includePaths,
+          require("bourbon-neat").includePaths
+        ],
+        errLogToConsole: !enabled.failStyleTask
+      }));
+    })
+    .pipe(concat, filename)
+    .pipe(autoprefixer, {
+      browsers: [
+        'last 2 version',
+        'safari 5', 'ie 8',
+        'ie 9',
+        'opera 12',
+        'ios 6',
+        'android 4'
+      ]
+    })
+    ();
 };
 
 // ### JS processing pipeline
@@ -149,6 +187,11 @@ var jsTasks = function(filename) {
     })();
 };
 
+var jsUnminify = function(filename) {
+  return lazypipe()
+    .pipe(concat, filename)
+    ();
+};
 // ### Write to rev manifest
 // If there are any revved files then write them to the rev manifest.
 // See https://github.com/sindresorhus/gulp-rev
@@ -236,6 +279,35 @@ gulp.task('jshint', function() {
     .pipe(gulpif(enabled.failJSHint, jshint.reporter('fail')));
 });
 
+gulp.task('cssUnminify', function() {
+  var merged = merge();
+  manifest.forEachDependency('css', function(dep) {
+    var cssTasksInstance = cssUnminify(dep.name);
+    if (!enabled.failStyleTask) {
+      cssTasksInstance.on('error', function(err) {
+        console.error(err.message);
+        this.emit('end');
+      });
+    }
+    merged.add(gulp.src(dep.globs, {base: 'styles'})
+      .pipe(cssTasksInstance)
+      .pipe(gulp.dest(path.dist + 'unminified'))
+      );
+  });
+  return merged;
+});
+
+gulp.task('jsUnminify', function() {
+  var merged = merge();
+  manifest.forEachDependency('js', function(dep) {
+    merged.add(
+      gulp.src(dep.globs, {base: 'scripts'})
+        .pipe(jsUnminify(dep.name))
+        .pipe(gulp.dest(path.dist + 'unminified'))
+    );
+  });
+  return merged;
+});
 // ### Clean
 // `gulp clean` - Deletes the build folder entirely.
 gulp.task('clean', require('del').bind(null, [path.dist]));
@@ -268,6 +340,8 @@ gulp.task('watch', function() {
 gulp.task('build', function(callback) {
   runSequence('styles',
               'scripts',
+              'cssUnminify',
+              'jsUnminify',
               ['fonts', 'images'],
               callback);
 });
