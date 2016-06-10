@@ -14,12 +14,12 @@ $visual-grid-opacity: .2;
 // Change the grid settings
 // $column: 90px;
 // $gutter: 10px;
-// $grid-columns: 12;
-$max-width:em(1200);
+$grid-columns: 2;
+$max-width: 1170px;
 
 // Breakpoints
 //min-width: 768px
-$small-screen: new-breakpoint(max-width 40em 4);/*max-width 640px, mobile-only styles, use when QAing mobile issues */
+$small-screen: new-breakpoint(max-width 40em 2);/*max-width 640px, mobile-only styles, use when QAing mobile issues */
 $medium-screen: new-breakpoint(min-width 40.063em 8);/* min-width 641px, medium screens */
 $medium-screen-only: new-breakpoint(min-width 40.063em max-width 64em 8);/* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
 $large-screen: new-breakpoint(min-width 64.063em 12);/* min-width 1025px, large screens */
@@ -27,8 +27,6 @@ $large-screen-only: new-breakpoint(min-width 64.063em max-width 90em 12);/* min-
 $xlarge-screen: new-breakpoint(min-width 90.063em 12);/* min-width 1441px, xlarge screens */
 $xlarge-screen-only: new-breakpoint(min-width 90.063em max-width 120em 12);/* min-width 1441px and max-width 1920px, use when QAing xlarge screen-only issues */
 $xxlarge-screen: new-breakpoint(min-width 120.063em 12);/* min-width 1921px, xxlarge screens */
-
-$grid-padding: new-breakpoint(max-width em(1225) 12);
 
 $mobile-padding: rem($gutter) / 2;
 // Breakpoints
