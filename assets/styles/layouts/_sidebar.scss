@@ -1,8 +1,11 @@
+/* =Sidebar
+-------------------------------------------------------------- */
 .sidebar {
-	//padding: 1em;
-	@include padding(rem(15));
-
-	@include background($base-background-color);
+	@include padding(rem(1));
+	@include background(white);
+	box-shadow: 0 1px 4px rgba(0,0,0,.04);
+    border: 1px solid rgba(0,0,0,.09);
+    border-radius: 3px;
 
 	.widget {
 	    &:not(:last-child) {

@@ -1,6 +1,12 @@
+/* =Footer
+-------------------------------------------------------------- */
 .footer {
 
 	.widget {
-		@include span-columns(3);
+		@include span-columns(2);
+
+		@include media($large-screen) {
+			@include span-columns(3);
+		}
 	}
 }
