@@ -1,34 +1,15 @@
-/* =Typographical Functions
--------------------------------------------------------------- */
-
-/**
- * PX to Rem Sizing
- *
- * How to use
- * font-size: rem(20);
- *
- * Ouputs —
- * font-size: 20px;
- */
-
-$em-base: $base-font-size;
-
 /* =Typography
 -------------------------------------------------------------- */
 body {
     background: $base-background-color;
     color: $base-font-color;
-    font-size: $em-base;
+    font-size: $base-font-size;
     font-family: $base-font-family;
     line-height: $base-line-height;
 }
 h1, h2, h3, h4, h5, h6 {
-    @include clearfix;
-    clear: both;
-    float: none;
     line-height: $heading-line-height;
     margin: 0 0 $small-spacing;
-    text-transform: uppercase;
     font-family: $heading-font-family;
 }
 blockquote {
@@ -40,7 +21,7 @@ blockquote {
 cite {
     font-style: italic;
 }
-a, &:visited {
+a {
     @include transition (all $base-duration $base-timing);
     color: $link-color;
     text-decoration: none;
