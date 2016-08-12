@@ -5,6 +5,7 @@
          <img src="<?php header_image(); ?>" width="<?php echo get_custom_header()->width; ?>" height="<?php echo get_custom_header()->height; ?>" alt="Logo" />
       </a>
     </div>
+    <div id="nav-toggle" class="nav-toggle"><span class="nav_icon"></span>Menu</div>
     <nav class="nav-primary">
       <?php
       if (has_nav_menu('primary_navigation')) :

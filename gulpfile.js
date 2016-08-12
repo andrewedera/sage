@@ -111,10 +111,7 @@ var cssTasks = function(filename) {
         'android 4'
       ]
     })
-    .pipe(cssNano, {
-      safe: true,
-      discardComments: {removeAll: true}
-    })
+    .pipe(cssnano())
     .pipe(function() {
       return gulpif(enabled.rev, rev());
     })
@@ -309,7 +306,7 @@ gulp.task('jsUnminify', function() {
   return merged;
 });
 // ### Clean
-// `gulp clean` - Deletes the build folder entirely.
+// `gulp clean` - Deletes the build folder entisy.
 gulp.task('clean', require('del').bind(null, [path.dist]));
 
 // ### Watch

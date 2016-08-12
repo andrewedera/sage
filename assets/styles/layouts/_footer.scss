@@ -4,9 +4,24 @@
 
 	.widget {
 		@include span-columns(2);
+	    margin: 1em 0;
 
 		@include media($large-screen) {
 			@include span-columns(3);
 		}
+	}
+	.copyright {
+	    background: #1f202e;
+	    color: white;
+	    text-align: center;
+	    padding: 1em;
+	}
+}
+
+.footer-wrapper {
+	padding: 1em;
+
+	@include media($large-screen) {
+		padding: 0;
 	}
 }
